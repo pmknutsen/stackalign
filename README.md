@@ -1,17 +1,22 @@
 ###StackAlign
 
-StackAlign is a Matlab toolbox for aligning images in a stack. It is primarily intended to align low-resolution images taken with a standard, fluorescence microscope.
+StackAlign is a Matlab toolbox for manually aligning images in a stack. It's primarily purpose in life is to align a small number (tens) of low-resolution images taken with a standard, fluorescence microscope.
 
-StackAlign can perform some basic image processing and analysis functions such as:
+StackAlign also has some basic image processing and analysis capabilities:
 
 * Thresholding (e.g. for locating regions of fluorescence)
 * ROI selection
 * 3D displays of ROIs and thresholded images
 
+Applications:
+* 
+
 StackAlign is work-in-progress.
 
 
 ###Documentation
+See `example.m` for a demonstration how to use the library.
+
 
 ####Filename conventions
 StackAlign always works in the current directory. Use the cd() command to change directory before running any of the StackAlign functions.

@@ -1,4 +1,4 @@
-function [mask,i,j]=roispline(I,kind,tension,varargin)
+function [mask,i,j] = roispline(I,kind,tension,varargin)
 
 % function [mask,i,j] = roispline(I,str,tension,points)
 %
@@ -19,32 +19,35 @@ function [mask,i,j]=roispline(I,kind,tension,varargin)
 % Notes:
 %   Function plots into current figure
 %
+% Originally by Simone Cazzaniga and downloaded from:
+%   http://www.mathworks.com/matlabcentral/fileexchange/12530-select-roi-in-image-using-spline/content/oispline.m
+%
+% Edited by Per Knutsen
+%
 
 warning off
 
-if nargin<2
-    kind='natural';
-elseif nargin<3
-    tension=0;
+if nargin < 2
+    kind = 'natural';
+elseif nargin < 3
+    tension = 0;
 end
 
 siz = size(I);
-
-%title('Click right button or close curve clicking near first point');
 
 hold on
 hLine = plot(nan,nan,'r-');
 hDots = plot(nan,nan,'y.');
 hold off
 
-% initializes number of points for each step
+% Initializes number of points for each step
 npoints = sqrt(siz(1) * siz(2)) * .1;
 dim = 10 / 835 * sqrt(siz(1) * siz(2));
 if dim < 8
     dim = 8;
 end
 
-% initialize with input points
+% Initialize with input points
 if ~isempty(varargin)
     cor = varargin{1};
     i = size(cor, 2);
@@ -59,8 +62,13 @@ switch kind
     case 'natural'
         while flag
             i = i + 1;
-            [x, y, bottone] = ginput(1);
-
+            try
+                [x, y, bottone] = ginput(1);
+            catch
+                % figure was likely closed if we got here
+                break
+            end
+            
             switch bottone
                 case 3
                     % Erase previous point if right button is pressed
@@ -89,7 +97,7 @@ switch kind
                 otherwise
                     % Add new point
                     cor(1,i) = x;
-                    cor(2,i) = y;                    
+                    cor(2,i) = y;
             end
             
             set(hDots, 'xdata', cor(1,i), 'ydata', cor(2,i))
@@ -127,10 +135,10 @@ switch kind
             if i>1
                 if flag
                     if (norm([x(1) y(1)]-[x(i) y(i)])<dim && i>2)
-                        x(i)=[];
-                        y(i)=[];
-                        Px=[x(end) x x(1) x(2)];
-                        Py=[y(end) y  y(1) y(2)];
+                        x(i) = [];
+                        y(i) = [];
+                        Px = [x(end) x x(1) x(2)];
+                        Py = [y(end) y  y(1) y(2)];
                         flag=0;
                     else
                         Px=[x(1) x x(end)];
@@ -411,7 +419,6 @@ GHy=[P0(2);   P1(2);   P2(2);   P3(2)];
 
 U=[u.^3    u.^2    u    1];
 
-
-xt=U*MC*GHx;
-yt=U*MC*GHy;
+xt = U*MC*GHx;
+yt = U*MC*GHy;
 return

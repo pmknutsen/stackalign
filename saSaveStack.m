@@ -1,8 +1,8 @@
 function tStack = saSaveStack(tStack)
 % Save image stack and results
 
-disp('aiSaveStack: Saving image stack...')
-sResultsFile = 'ai_image_stack.mat';
+disp('saSaveStack: Saving image stack...')
+sResultsFile = 'sa_image_stack.mat';
 
 save(sResultsFile, 'tStack', '-V7.3');
 

@@ -1,7 +1,10 @@
 function tStack = saDistributeTransform(tStack, iIndices)
-% Distribute transformation parameters of Ith images to same-channel images
+% Copy transformation parameters of indexed images I in tStack to all
+% images belonging to the same section (i.e. the other color channels).
 %
+% Usage:
 %   tStack = saDistributeTransform(tStack, I)
+%
 %
 %
 

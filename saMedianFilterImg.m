@@ -4,20 +4,22 @@ function tStack = saMedianFilterImg(tStack, nMedFiltSize)
 % Examples:
 %   tStack = saMedianFilterImg(tStack, 201);
 %
-% Filtering is generally faster when nMedFiltSize is an odd number
+% Filtering is generally faster when nMedFiltSize is an odd number.
 %
+% For faster computing, convert all images to UINT16 with
+% saConvertToUINT16() prior to running this function.
 %
 
-hWait = waitbar(0, 'saMedianFilterImg: Computing median filtered images...');
+fprintf('saMedianFilterImg: Computing median filtered images...\n');
+
 for i = 1:numel(tStack)
+    fprintf ('Filtering image %d / %d \r', i, numel(tStack))
     mImg = tStack(i).mImg;
-    mImgMedFilt = double(medfilt2(uint16(mImg), [nMedFiltSize nMedFiltSize], 'symmetric'));
+    mImgMedFilt = medfilt2(mImg, [nMedFiltSize nMedFiltSize], 'symmetric');
     tStack(i).mImgMedFilt = mImgMedFilt;
     tStack(i).nMedFiltSize = nMedFiltSize;
-    waitbar(i/numel(tStack), hWait)
 end
 
-close(hWait)
-fprintf('saMedianFilterImg: Median filtered %d images.\n', i)
+fprintf('\nsaMedianFilterImg: Median filtered %d images.\n', i)
 
 return

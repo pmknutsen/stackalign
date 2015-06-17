@@ -5,11 +5,14 @@ function tStack = saGetResizedImg(tStack, nResizeFact)
 % to speed up rotation, translation, clicking operations etc.
 %
 
+fprintf('saGetResizedImg: Resizing %d images...\n', length(tStack))
+
 for i = 1:length(tStack)
+    fprintf ('Resizing image %d / %d \r', i, numel(tStack))
     tStack(i).mImgLoRes = imresize(tStack(i).mImg, 1/nResizeFact);
     tStack(i).nResizeFact = nResizeFact;
 end
 
-disp('saGetResizedImg: Done resizing images.')
+fprintf('\nsaGetResizedImg: Done resizing %d images.\n', i)
 
 return
